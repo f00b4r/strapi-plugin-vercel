@@ -41,6 +41,12 @@ If you want to use [Vercel](https://vercel.com) as a platform for your website y
 Of course, you can use webhook, but it can trigger a lot of pipelines. With this plugin, you will see last vercel's deploments and
 can easily trigger deploy with button.
 
+This plugin solves:
+
+- manual triggering deployment to Vercel
+- list of latest deployments
+- current status of deployment
+
 ## Documentation
 
 1. Install plugin.
@@ -79,10 +85,10 @@ can easily trigger deploy with button.
 
     #### Trigger
 
-    Generate webhook on `https://vercel.com/{team}/{project}/settings/git` and parse last string.
+    Generate webhook on `https://vercel.com/{team}/{project}/settings/git` and parse last string (webhook id).
 
     ```
-    |--------------------------------------------/project id --/ webhook id /
+    |--------------------------------------------/ project id  / webhook id /
     https://api.vercel.com/v1/integrations/deploy/abcdefghijklm/vwxyzvwxyzzz/
     ```
 
