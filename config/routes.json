@@ -1,0 +1,28 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/deployments",
+      "handler": "vercel.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/deployments/:id",
+      "handler": "vercel.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/deploy/:target",
+      "handler": "vercel.deploy",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
