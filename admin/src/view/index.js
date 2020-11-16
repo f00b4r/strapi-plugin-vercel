@@ -120,11 +120,11 @@ const DeploymentLast = (props) => {
           </div>
           <div className="mb-4">
             <div className="label">STATE</div>
-            <div>{deployment.readyState}</div>
+            <div>{deployment.readyState === 'READY' ? `READY (${moment(deployment.ready).format('DD.MM.YYYY HH:mm:SS')})` : deployment.readyState}</div>
           </div>
           <div className="mb-4">
             <div className="label">CREATED</div>
-            <div>{moment(deployment.created).format('DD.MM.YYYY HH:mm:SS')}</div>
+            <div>{moment(deployment.ready).format('DD.MM.YYYY HH:mm:SS')}</div>
           </div>
           <div>
             <div className="label">TARGET</div>
