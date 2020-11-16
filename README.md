@@ -52,7 +52,7 @@ This plugin solves:
 1. Install plugin.
 2. Edit configuration.
 
-    #### `/config/server.js`
+    #### `{strapi}/config/server.js`
 
     There must be root key `vercel`.
 
@@ -94,7 +94,7 @@ This plugin solves:
 
 3. Edit administration.
 
-    #### `admin/src/containers/HomePage/index.js`
+    #### `{strapi}/admin/src/containers/HomePage/index.js`
 
     ```js
     import React, { memo } from "react";
@@ -122,6 +122,8 @@ This plugin solves:
 
     export default memo(Dashboard);
     ```
+
+4. Profit 🚀
 
 ## Development
 
