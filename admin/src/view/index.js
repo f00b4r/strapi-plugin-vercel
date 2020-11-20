@@ -5,6 +5,8 @@ import { LoadingBar } from "@buffetjs/styles";
 import moment from 'moment';
 import { Block } from "./components";
 
+const DATETIME_FORMAT = 'DD.MM.YYYY HH:mm:ss';
+
 const Deployments = () => {
   const { error, isLoading, deployments } = useDeployments();
 
@@ -44,7 +46,7 @@ const DeploymentList = (props) => {
       name: "Date",
       value: "created",
       cellFormatter(name, row) {
-        return moment(row.created).format('DD.MM.YYYY HH:mm:SS');
+        return moment(row.created).format(DATETIME_FORMAT);
       }
     },
     {
@@ -120,11 +122,11 @@ const DeploymentLast = (props) => {
           </div>
           <div className="mb-4">
             <div className="label">STATE</div>
-            <div>{deployment.readyState === 'READY' ? `READY (${moment(deployment.ready).format('DD.MM.YYYY HH:mm:SS')})` : deployment.readyState}</div>
+            <div>{deployment.readyState === 'READY' ? `READY (${moment(deployment.ready).format(DATETIME_FORMAT)})` : deployment.readyState}</div>
           </div>
           <div className="mb-4">
             <div className="label">CREATED</div>
-            <div>{moment(deployment.ready).format('DD.MM.YYYY HH:mm:SS')}</div>
+            <div>{moment(deployment.ready).format(DATETIME_FORMAT)}</div>
           </div>
           <div>
             <div className="label">TARGET</div>
