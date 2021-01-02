@@ -54,7 +54,7 @@ const DeploymentList = (props) => {
       value: "url",
     },
     {
-      name: "Sate",
+      name: "State",
       value: "state",
     },
     {
