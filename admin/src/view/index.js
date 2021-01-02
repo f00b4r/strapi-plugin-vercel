@@ -36,7 +36,7 @@ const DeploymentList = (props) => {
   if (!deployments || deployments.length === 0) {
     return (
       <Padded bottom size="md">
-        <p>No deployments, make your first deploy</p>;
+        <p>No deployments, make your first deploy</p>
       </Padded>
     );
   }
