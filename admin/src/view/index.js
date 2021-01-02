@@ -128,7 +128,7 @@ const DeploymentLast = (props) => {
           <div className="mb-4">
             <div className="label">STATE</div>
             <StatusWrapper state={deployment.readyState}>
-              {deployment.state}
+              {deployment.readyState}
             </StatusWrapper>
           </div>
           <div className="mb-4">
