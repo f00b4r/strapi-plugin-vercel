@@ -8,7 +8,7 @@ import { Block } from "./components";
 const DATETIME_FORMAT = 'DD.MM.YYYY HH:mm:ss';
 
 const Deployments = () => {
-  const { error, isLoading, deployments } = useDeployments();
+  const { error, isLoading, deployments: allDeployment } = useDeployments();
 
   if (isLoading) {
     return (
@@ -20,7 +20,7 @@ const Deployments = () => {
 
   if (error) return (<Block>Error occured during fetching deployments</Block>)
 
-  const latestDeploy = deployments.shift();
+  const [latestDeploy, ...deployments] = allDeployment;
 
   return (
     <>
