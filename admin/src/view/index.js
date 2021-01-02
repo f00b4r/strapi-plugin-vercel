@@ -3,12 +3,12 @@ import { request } from "strapi-helper-plugin";
 import { Table, Padded, Flex, Button } from "@buffetjs/core";
 import { LoadingBar } from "@buffetjs/styles";
 import moment from 'moment';
-import { Block } from "./components";
+import { Block, StatusWrapper } from "./components";
 
 const DATETIME_FORMAT = 'DD.MM.YYYY HH:mm:ss';
 
 const Deployments = () => {
-  const { error, isLoading, deployments } = useDeployments();
+  const { error, isLoading, deployments: allDeployment } = useDeployments();
 
   if (isLoading) {
     return (
@@ -20,7 +20,7 @@ const Deployments = () => {
 
   if (error) return (<Block>Error occured during fetching deployments</Block>)
 
-  const latestDeploy = deployments.shift();
+  const [latestDeploy, ...deployments] = allDeployment;
 
   return (
     <>
@@ -36,7 +36,7 @@ const DeploymentList = (props) => {
   if (!deployments || deployments.length === 0) {
     return (
       <Padded bottom size="md">
-        <p>No deployments, make your first deploy</p>;
+        <p>No deployments, make your first deploy</p>
       </Padded>
     );
   }
@@ -54,8 +54,13 @@ const DeploymentList = (props) => {
       value: "url",
     },
     {
-      name: "Sate",
+      name: "State",
       value: "state",
+      cellAdapter(row) {
+        return (
+          <StatusWrapper state={row.state}>{row.state}</StatusWrapper>
+        )
+      }
     },
     {
       name: "Target",
@@ -122,11 +127,16 @@ const DeploymentLast = (props) => {
           </div>
           <div className="mb-4">
             <div className="label">STATE</div>
-            <div>{deployment.readyState === 'READY' ? `READY (${moment(deployment.ready).format(DATETIME_FORMAT)})` : deployment.readyState}</div>
+            <div>
+              <StatusWrapper state={deployment.readyState}>
+                {deployment.readyState} 
+              </StatusWrapper>
+              {deployment.readyState === 'READY' && ` (${moment(deployment.ready).format(DATETIME_FORMAT)})`}
+            </div>
           </div>
           <div className="mb-4">
             <div className="label">CREATED</div>
-            <div>{moment(deployment.ready).format(DATETIME_FORMAT)}</div>
+            <div>{moment(deployment.createdAt).format(DATETIME_FORMAT)}</div>
           </div>
           <div>
             <div className="label">TARGET</div>
