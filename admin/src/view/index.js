@@ -127,13 +127,16 @@ const DeploymentLast = (props) => {
           </div>
           <div className="mb-4">
             <div className="label">STATE</div>
-            <StatusWrapper state={deployment.readyState}>
-              {deployment.readyState}
-            </StatusWrapper>
+            <div>
+              <StatusWrapper state={deployment.readyState}>
+                {deployment.readyState} 
+              </StatusWrapper>
+              {deployment.readyState === 'READY' && ` (${moment(deployment.ready).format(DATETIME_FORMAT)})`}
+            </div>
           </div>
           <div className="mb-4">
             <div className="label">CREATED</div>
-            <div>{moment(deployment.ready).format(DATETIME_FORMAT)}</div>
+            <div>{moment(deployment.createdAt).format(DATETIME_FORMAT)}</div>
           </div>
           <div>
             <div className="label">TARGET</div>
