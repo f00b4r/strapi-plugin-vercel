@@ -33,3 +33,19 @@ export const Block = styled.div`
     justify-content: center;
   }
 `;
+
+export const StatusWrapper = styled.div`
+  display: inline-block;
+  font-weight: 700;
+  ${props => {
+    switch (props.state) {
+      case 'READY':
+        return `color: #aad67c`;
+      case 'ERROR':
+        return `color: #f64d0a`;
+      case 'QUEUED':
+      case 'BUILDING':
+        return `color: #9ea7b8;`;
+    }
+  }}
+`
