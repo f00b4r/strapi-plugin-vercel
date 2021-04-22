@@ -2,11 +2,11 @@ const axios = require("axios");
 
 module.exports = {
   async getDeployments() {
-    const res = await this._getClient().get(`/v5/now/deployments?projectId=${this._getApiProjectId()}&teamId=${this._getApiTeamId()}&limit=10`);
+    const res = await this._getClient().get(`/v6/now/deployments?projectId=${this._getApiProjectId()}&limit=10`);
     return res.data;
   },
   async getDeployment(id) {
-    const res = await this._getClient().get(`/v11/now/deployments/${id}?projectId=${this._getApiProjectId()}&teamId=${this._getApiTeamId()}`);
+    const res = await this._getClient().get(`/v10/now/deployments/${id}`)
     return res.data;
   },
   async deploy(target) {
