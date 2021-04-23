@@ -62,7 +62,6 @@ This plugin solves:
 
         vercel: {
             token: env('VERCEL_TOKEN'),
-            teamId: env('VERCEL_TEAM_ID'),
             projectId: env('VERCEL_PROJECT_ID'),
             triggers: {
                 production: env('VERCEL_TRIGGER_PRODUCTION')
@@ -74,10 +73,6 @@ This plugin solves:
     #### Token
 
     Generate token on `https://vercel.com/account/tokens`.
-
-    #### Team ID
-
-    Get from API endpoint or inspect `https://vercel.com/{team}` page in devtools.
 
     #### Project ID
 
@@ -92,7 +87,7 @@ This plugin solves:
     https://api.vercel.com/v1/integrations/deploy/abcdefghijklm/vwxyzvwxyzzz/
     ```
 
-3. Edit administration.
+3. Edit administration - Create these directories if you don't have them yet.
 
     #### `{strapi}/admin/src/containers/HomePage/index.js`
 
