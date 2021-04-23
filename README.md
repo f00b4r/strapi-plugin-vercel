@@ -37,9 +37,9 @@ npm install --save strapi-plugin-vercel
 
 ## Overview
 
-If you want to use [Vercel](https://vercel.com) as a platform for your website you need to tell Vercel when to rebuild your site.
-Of course, you can use webhook, but it can trigger a lot of pipelines. With this plugin, you will see last vercel's deploments and
-can easily trigger deploy with button.
+If you want to use [Vercel](https://vercel.com) as a platform for your website built on Strapi, you need to tell Vercel when to rebuild your site.
+Of course, you can use webhook, but it can trigger a lot of pipelines. With this plugin, you will have a recreation of the vercel dashboard on
+your strapi dashboard, with which you can easily trigger deploys.
 
 This plugin solves:
 
@@ -58,8 +58,9 @@ This plugin solves:
 
     ```js
     module.exports = ({ env }) => ({
-        {....},
-
+        {
+            ...
+        },
         vercel: {
             token: env('VERCEL_TOKEN'),
             projectId: env('VERCEL_PROJECT_ID'),
@@ -76,15 +77,16 @@ This plugin solves:
 
     #### Project ID
 
-    Get from API endpoint or inspect `https://vercel.com/{team}/{project}` page in devtools.
+    Get from API endpoint or inspect `https://vercel.com/{team}/{project}` page in devtools. It should begin with `prj_...`
 
     #### Trigger
 
-    Generate webhook on `https://vercel.com/{team}/{project}/settings/git` and parse last string (webhook id).
+    Generate webhook on `https://vercel.com/{team}/{project}/settings/git` and copy the last string (webhook id).
 
     ```
-    |--------------------------------------------/ project id  / webhook id /
     https://api.vercel.com/v1/integrations/deploy/abcdefghijklm/vwxyzvwxyzzz/
+    |                                                 ^^             ^^
+    |                                           / project id  / webhook id /
     ```
 
 3. Edit administration - Create these directories if you don't have them yet.
