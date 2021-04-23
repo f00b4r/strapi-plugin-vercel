@@ -34,11 +34,6 @@ module.exports = {
     if (!conf) throw "[strapi-plugin-vercel] Missing vercel.token";
     return conf;
   },
-  _getApiTeamId() {
-    const conf = strapi.config.server.vercel.teamId;
-    if (!conf) throw "[strapi-plugin-vercel] Missing vercel.teamId";
-    return conf;
-  },
   _getApiProjectId() {
     const conf = strapi.config.server.vercel.projectId;
     if (!conf) throw "[strapi-plugin-vercel] Missing vercel.projectId";
