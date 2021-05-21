@@ -9,8 +9,8 @@
 </p>
 
 <p align=center>
-    <a href="https://github.com/webkitty/strapi-plugin-vercel/actions">
-        <img src="https://badgen.net/github/checks/webkitty/strapi-plugin-vercel">
+    <a href="https://github.com/f00b4r/strapi-plugin-vercel/actions">
+        <img src="https://badgen.net/github/checks/f00b4r/strapi-plugin-vercel">
     </a>
     <a href="https://www.npmjs.com/package/strapi-plugin-vercel">
         <img src="https://badgen.net/npm/v/strapi-plugin-vercel">
@@ -19,7 +19,7 @@
         <img src="https://badgen.net/npm/dt/strapi-plugin-vercel">
     </a>
     <a href="/LICENSE">
-        <img src="https://badgen.net/github/license/webkitty/strapi-plugin-vercel">
+        <img src="https://badgen.net/github/license/f00b4r/strapi-plugin-vercel">
     </a>
 </p>
 
