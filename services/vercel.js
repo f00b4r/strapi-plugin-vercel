@@ -2,7 +2,11 @@ const axios = require("axios");
 
 module.exports = {
   async getDeployments() {
-    const res = await this._getClient().get(`/v6/now/deployments?projectId=${this._getApiProjectId()}&limit=10`);
+    const projectId = this._getApiProjectId();
+    const teamId = this._getApiTeamId();
+    const res = await this._getClient().get(
+      `/v6/now/deployments?projectId=${projectId}&limit=10${teamId ? `&teamId=${teamId}` : ''}`
+    );
     return res.data;
   },
   async getDeployment(id) {
@@ -38,6 +42,9 @@ module.exports = {
     const conf = strapi.config.server.vercel.projectId;
     if (!conf) throw "[strapi-plugin-vercel] Missing vercel.projectId";
     return conf;
+  },
+  _getApiTeamId() {
+    return strapi.config.server.vercel.teamId;
   },
   _getApiTriggers() {
     const conf = strapi.config.server.vercel.triggers;

@@ -64,6 +64,7 @@ This plugin solves:
         vercel: {
             token: env('VERCEL_TOKEN'),
             projectId: env('VERCEL_PROJECT_ID'),
+            teamId: env('VERCEL_TEAM_ID'), // optional: if project owner is a team
             triggers: {
                 production: env('VERCEL_TRIGGER_PRODUCTION')
             },
