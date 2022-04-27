@@ -1,16 +1,29 @@
 const axios = require("axios");
 
+const DEFAULTS = {
+  deployments: 10
+}
+
 module.exports = {
   async getDeployments() {
-    const projectId = this._getApiProjectId();
-    const teamId = this._getApiTeamId();
-    const res = await this._getClient().get(
-      `/v6/now/deployments?projectId=${projectId}&limit=10${teamId ? `&teamId=${teamId}` : ''}`
-    );
+    this._validate();
+
+    const config = this._getConfig();
+    const params = {
+      projectId: config.projectId,
+      limit: config.deployments,
+    }
+
+    // Team is optional, in case of personal profile or global token
+    if (config.teamId) {
+      params['teamId'] = config.teamId;
+    }
+
+    const res = await this._getClient().get(`/v6/deployments`, { params });
     return res.data;
   },
   async getDeployment(id) {
-    const res = await this._getClient().get(`/v10/now/deployments/${id}`)
+    const res = await this._getClient().get(`/v13/deployments/${id}`)
     return res.data;
   },
   async deploy(target) {
@@ -19,19 +32,36 @@ module.exports = {
     const res = await this._getClient().get(`/v1/integrations/deploy/${this._getApiProjectId()}/${triggers[target]}`);
     return res.data;
   },
-
+  _validate() {
+    if (!strapi.config.server.vercel) {
+      throw `[strapi-plugin-vercel] Missing vercel configuration (config/server.js > vercel)`;
+    }
+  },
+  /**
+   * @returns {import('axios').AxiosInstance}
+   */
   _getClient() {
     if (!this._client) {
       this._client = axios.create({
         baseURL: 'https://api.vercel.com',
         headers: {
           'Authorization': `Bearer ${this._getApiToken()}`,
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'User-Agent': 'Strapi Vercel'
         },
       });
     }
 
     return this._client;
+  },
+  _getConfig() {
+    return {
+      token: this._getApiToken(),
+      projectId: this._getApiProjectId(),
+      teamId: this._getApiTeamId(),
+      triggers: this._getApiTriggers(),
+      config: { ...DEFAULTS, ...(strapi.config.server.vercel.config || {}) },
+    }
   },
   _getApiToken() {
     const conf = strapi.config.server.vercel.token;
@@ -50,5 +80,5 @@ module.exports = {
     const conf = strapi.config.server.vercel.triggers;
     if (!conf) throw "[strapi-plugin-vercel] Missing vercel.triggers";
     return conf;
-  }
+  },
 };
