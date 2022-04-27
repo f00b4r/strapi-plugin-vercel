@@ -35,6 +35,13 @@ To install latest version use [NPM](https://npmjs.com).
 npm install --save strapi-plugin-vercel
 ```
 
+## Versions
+
+| State  | Version  | Strapi |
+| ------ | -------- | ------ |
+| dev    | `dev`    | `4.x`  |
+| stable | `^0.0.7` | `3.x`  |
+
 ## Overview
 
 If you want to use [Vercel](https://vercel.com) as a platform for your website built on Strapi, you need to tell Vercel when to rebuild your site.
@@ -62,33 +69,66 @@ This plugin solves:
             ...
         },
         vercel: {
+            // Required
             token: env('VERCEL_TOKEN'),
+            // Required
             projectId: env('VERCEL_PROJECT_ID'),
-            teamId: env('VERCEL_TEAM_ID'), // optional: if project owner is a team
+            // Optional (required if you use teams)
+            teamId: env('VERCEL_TEAM_ID'),
+            // Required (hooks)
             triggers: {
                 production: env('VERCEL_TRIGGER_PRODUCTION')
             },
+            // Optional
+            config: {
+                // Number of latest deployments
+                deployments: 10
+            }
         }
     });
     ```
 
     #### Token
 
-    Generate token on `https://vercel.com/account/tokens`.
+    Token is required.
+
+    Generate token on `https://vercel.com/account/tokens`. You should set the scope to your team.
+
+    #### Team ID
+
+    Team ID is optional, but if you set team's scope to your token, than you should provide team ID.
+
+    You can find it on your team's settings page: https://vercel.com/teams/{team}/settings.
+
+    It should begin with `team_...`. If you use personal account, you don't need it.
+
+    ![](docs/vercel-team-id.png)
 
     #### Project ID
 
-    Get from API endpoint or inspect `https://vercel.com/{team}/{project}` page in devtools. It should begin with `prj_...`
+    Project ID is required.
+
+    You can find it on your projects's settings page: hhttps://vercel.com/{team}/{project}/settings
+
+    It should begin with `prj_...`. If you use personal account, you still need it.
+
+    ![](docs/vercel-project-id.png)
 
     #### Trigger
 
-    Generate webhook on `https://vercel.com/{team}/{project}/settings/git` and copy the last string (webhook id).
+    Trigger (deploy hook) is required.
+
+    You can generate it on your projects's settings git page: hhttps://vercel.com/{team}/{project}/settings/git
+
+    ![](docs/vercel-deploy-hook.png)
 
     ```
     https://api.vercel.com/v1/integrations/deploy/abcdefghijklm/vwxyzvwxyzzz/
     |                                                 ^^             ^^
-    |                                           / project id  / webhook id /
+    |                                           / project id  / hook id     /
     ```
+
+    Copy only hook id.
 
 3. Edit administration section. Create these directories if you don't have them yet.
 
